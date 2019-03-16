@@ -1,11 +1,13 @@
 package twilightforest;
 
+import mezz.jei.input.InputHandler;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -109,6 +111,7 @@ public class TwilightForestMod {
 		proxy.init();
 		TFAdvancements.init();
 		TFTreasure.init();
+		MinecraftForge.EVENT_BUS.register(new EventEntityJoinWorld());
 
 		if (compat) {
 			try {
@@ -158,6 +161,8 @@ public class TwilightForestMod {
 	public void startServer(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandTF());
 	}
+
+
 
 	private void registerTileEntities() {
 		proxy.registerCritterTileEntities();
